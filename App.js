@@ -10,7 +10,9 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import Header from "./src/components/header";
 import PhotoSection from "./src/components/photosection";
-import PlaceComp from "./src/components/placecomp";
+import PhotoFeed from "./src/components/photofeed";
+// import PlaceComp from "./src/components/placecomp";
+import FuncComp from "./src/components/funccomp";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -25,11 +27,18 @@ export default class App extends Component {
     // return (
     //   <PlaceComp />
     // );
+
     return (
       <View>
         <Header text="Photos section" />
-        <PhotoSection />
+        <PhotoFeed />
       </View>
     );
+
+    // return (
+    //   <View>
+    //     <FuncComp testsome="testsome" />
+    //   </View>
+    // )
   }
 }

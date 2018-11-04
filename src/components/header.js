@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
-export default class Header extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}> {this.props.text} </Text>
-      </View>
-    )
-  }
+const Header = (props) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}> {props.text} </Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -25,3 +23,6 @@ const styles = StyleSheet.create({
         margin: 13,
     }
   });
+
+  export default Header;
+  
