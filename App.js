@@ -11,6 +11,7 @@ import {Platform, StyleSheet, View} from 'react-native';
 import Header from "./src/components/header";
 import PhotoSection from "./src/components/photosection";
 import PhotoFeed from "./src/components/photofeed";
+import LoginForm from "./src/components/loginForm";
 // import PlaceComp from "./src/components/placecomp";
 import FuncComp from "./src/components/funccomp";
 import { Provider } from 'react-redux';
@@ -31,19 +32,25 @@ export default class App extends Component {
   render() {
 
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
+    return (
+      <View style={styles.container}>
+        <LoginForm />
+      </View>
+    )
     
     // return (
     //   <PlaceComp />
     // );
 
-    return (
-      <Provider store={store}>
-        <View>
-          <Header text="Photos section" />
-          <PhotoFeed />
-        </View>
-      </Provider>
-    );
+    // return (
+    //   <Provider store={store}>
+    //     <View>
+    //       <Header text="Photos section" />
+    //       <PhotoFeed />
+    //     </View>
+    //   </Provider>
+    // );
 
     // return (
     //   <View>
@@ -52,3 +59,10 @@ export default class App extends Component {
     // )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  }
+});
