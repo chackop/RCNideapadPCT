@@ -13,6 +13,9 @@ import PhotoSection from "./src/components/photosection";
 import PhotoFeed from "./src/components/photofeed";
 // import PlaceComp from "./src/components/placecomp";
 import FuncComp from "./src/components/funccomp";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './src/reducers'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -29,10 +32,12 @@ export default class App extends Component {
     // );
 
     return (
-      <View>
-        <Header text="Photos section" />
-        <PhotoFeed />
-      </View>
+      <Provider store={createStore(reducers)}>
+        <View>
+          <Header text="Photos section" />
+          <PhotoFeed />
+        </View>
+      </Provider>
     );
 
     // return (
