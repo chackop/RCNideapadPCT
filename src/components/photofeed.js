@@ -2,22 +2,18 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import axios from 'axios';
 import PhotoSection from "./photosection";
+import { connect } from 'react-redux';
+import { getPhotos } from '../actions';
 
-export default class PhotoFeed extends Component {
-    state = { photos: [{username: 'HelloUser'}] };
+class PhotoFeed extends Component {
+    // state = { photos: [{username: 'HelloUser'}] };
 
     componentDidMount() {
-        axios.get('http://localhost:3000/photos')
-        .then(
-            resp => { 
-                // console.log(resp.status);
-                this.setState({ photos: resp.data });
-            }
-        );
+       this.props.getPhotos();
     }
 
-    getPhotos() {
-        return this.state.photos.map(_photo => {
+    renderPhotos() {
+        return this.props.photos.map(_photo => {
            return (<PhotoSection key={_photo.id} photo={_photo} />);
         });
     }
@@ -25,8 +21,17 @@ export default class PhotoFeed extends Component {
   render() {
     return (
       <ScrollView>
-        {this.getPhotos()}
+        {this.renderPhotos()}
       </ScrollView>
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        photos: state.photos,
+        likes: state.likes
+    }
+}
+
+export default connect(mapStateToProps, {getPhotos})(PhotoFeed);

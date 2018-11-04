@@ -14,8 +14,9 @@ import PhotoFeed from "./src/components/photofeed";
 // import PlaceComp from "./src/components/placecomp";
 import FuncComp from "./src/components/funccomp";
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './src/reducers'
+import ReduxThunk from 'redux-thunk';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -26,13 +27,17 @@ const instructions = Platform.select({
 
 // type Props = {};
 export default class App extends Component {
+
   render() {
+
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    
     // return (
     //   <PlaceComp />
     // );
 
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         <View>
           <Header text="Photos section" />
           <PhotoFeed />
