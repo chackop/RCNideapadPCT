@@ -1,19 +1,35 @@
 import React, { Component } from 'react'
-import { Button, Text, View, Image, StyleSheet } from 'react-native'
-// import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Button, Text, View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class PhotoSection extends Component {
+  constructor() {
+    super();
+
+    this.like = false;
+    this.state = { heartIcon: 'ios-heart-outline' }
+  }
+
+  toggleLike() {
+    this.like = !this.like;
+    if (this.like) {
+      this.setState({heartIcon: 'ios-heart'})
+    } else {
+      this.setState({heartIcon: 'ios-heart-outline'})
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.thumbnailSection}>
           <Image 
           style={styles.thumbnail}
-          source={{uri: 'http://www.acqueon.com/wp-content/uploads/2017/08/avatar-image.png'}} />
+          source={{uri: this.props.photo.user_avatar}} />
           
           <View style={styles.titleContain}>
             <Text style={styles.username}>
-              Username
+              {this.props.photo.username}
             </Text>
           </View>
         </View>
@@ -21,17 +37,22 @@ export default class PhotoSection extends Component {
         <View>
           <Image 
           style={{width: null, height: 400}}          
-          source={{uri: 'http://www.tompetty.com/sites/g/files/g2000007521/f/sample001.jpg'}} />
+          source={{uri: this.props.photo.image}} />
         </View>
 
         <View style={styles.heartContain}>
-          <Button title="Like" />
-          {/* <Ionicons name='ios-heart-outline' size={30} /> */}
+        <TouchableWithoutFeedback onPress={this.toggleLike.bind(this)}>
+            <Button title="Like" />
+          {/* <Icon name={this.state.heartIcon} size={30}
+        style= {{color: this.state.heartIcon === 'heart' ? 'red' : 'black' }}
+        /> */}
+        </TouchableWithoutFeedback>
+        
         </View>
 
         <View style={styles.imageMeta}>
-          <Text style={styles.username}>username</Text>
-          <Text>caption</Text>
+          <Text style={styles.username}>{this.props.photo.username}</Text>
+          <Text>{this.props.photo.caption}</Text>
         </View>
       </View>
     )
