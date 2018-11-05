@@ -24,7 +24,8 @@ class LoginForm extends Component {
         console.log("enter login func");
         
         const { email, password } = this.props;
-        this.props.login(email, password);
+
+        this.props.login({email, password});
     }
 
   render() {
@@ -34,6 +35,7 @@ class LoginForm extends Component {
       <InnerSection>
         <FormInput placeholder = "Email" 
         value = {this.props.email}
+        autoCapitalize = 'none'
         onChangeText={text => this.props.authInputChange({
             'field': 'email', 'value': text
         })} />
@@ -48,7 +50,7 @@ class LoginForm extends Component {
         })} />
       </InnerSection>
 
-        <Button title="Login" onPress={()=> this.login.bind(this)} backgroundColor="red" />
+        <Button title="Login" onPress={this.login.bind(this)} backgroundColor="red" />
       </View>
     )
   }
