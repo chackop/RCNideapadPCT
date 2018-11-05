@@ -34,11 +34,13 @@ export default class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
     return (
-      <View style={styles.container}>
-        <Header text="Photos section" />
-        <LoginForm />
-      </View>
-    )
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Header text="Photos section" />
+          <LoginForm />
+        </View>
+      </Provider>
+    );
     
     // return (
     //   <PlaceComp />
