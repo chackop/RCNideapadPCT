@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import { Button, FormInput } from 'react-native-elements';
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
+import { Button, FormInput, FormValidationMessage } from 'react-native-elements';
 import InnerSection from "./inner-section";
 import firebase from 'firebase';
 import { authInputChange, login } from '../actions';
@@ -28,6 +28,27 @@ class LoginForm extends Component {
         this.props.login({email, password});
     }
 
+    showButton() {
+       if (this.props.loading) {
+           return (
+               <View>
+                   <ActivityIndicator size={'small'}/>
+               </View>
+           );
+       }
+        return (<Button title="Login" onPress={this.login.bind(this)} backgroundColor="red" />)
+    }
+
+    showError() {
+        if (this.props.error) {
+            return (
+                <FormValidationMessage>
+                    {this.props.error}
+                </FormValidationMessage>
+            );
+        }
+    }
+
   render() {
     return (
       <View style={styles.container}>
@@ -49,8 +70,12 @@ class LoginForm extends Component {
             'field': 'password', 'value': text
         })} />
       </InnerSection>
-
-        <Button title="Login" onPress={this.login.bind(this)} backgroundColor="red" />
+      <InnerSection>
+        {this.showButton()}
+      </InnerSection>
+      <InnerSection>
+        {this.showError()}
+      </InnerSection>  
       </View>
     )
   }
@@ -59,7 +84,10 @@ class LoginForm extends Component {
 const mapStateToProps = state => {
     return {
         email: state.auth.email,
-        password: state.auth.password
+        password: state.auth.password,
+        loading: state.auth.loading,
+        user: state.auth.user,
+        error: state.auth.error
     }
 }
 

@@ -2,7 +2,8 @@ const initialState = {
     email: '',
     password: '',
     user: {},
-    err: ''
+    error: '',
+    loading: false
 };
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -13,12 +14,18 @@ export default (state = initialState, action) => {
         case 'LOGIN_SUCCESS':
             console.log('login success')
             // newstate = [email: ''enewval, password: newval]
-            return { ...state, user: action.payload }
+            return { ...state, user: action.payload, loading: false }
             break;
+
+        case 'LOADING':
+            console.log('loading')
+            return { ...state, loading: true }
+            break;
+
         case 'LOGIN_FAILURE':
             console.log('login failure')
             // newstate = [email: ''enewval, password: newval]
-            return { ...state, error: 'Authentication Failed' }
+            return { ...state, error: 'Authentication Failed', loading: false }
             break;
         default:
             return state;
