@@ -11,12 +11,15 @@ export const authInputChange = ({ field, value }) => {
 export const login = ({ email, password }) => {
     return (dispatch) => {
         dispatch({type: 'LOADING'});
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        // .createUserWithEmailAndPassword(email, password)
         .then(user => { dispatch({
                 type: 'LOGIN_SUCCESS', payload: user
             })
         })
         .catch(function(error) {
+            console.log("error", error);
+            
         dispatch({
             type: 'LOGIN_FAILURE',
             payload: error

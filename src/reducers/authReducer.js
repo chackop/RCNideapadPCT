@@ -23,9 +23,9 @@ export default (state = initialState, action) => {
             break;
 
         case 'LOGIN_FAILURE':
-            console.log('login failure')
+            console.log('login failure', action.payload)
             // newstate = [email: ''enewval, password: newval]
-            return { ...state, error: 'Authentication Failed', loading: false }
+            return { ...state, error: action.payload.message, loading: false }
             break;
         default:
             return state;
