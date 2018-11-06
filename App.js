@@ -16,8 +16,10 @@ import LoginForm from "./src/components/loginForm";
 import FuncComp from "./src/components/funccomp";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from './src/reducers'
+import reducers from './src/reducers';
+import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
+import config from './src/config'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -28,6 +30,10 @@ const instructions = Platform.select({
 
 // type Props = {};
 export default class App extends Component {
+  componentDidMount = () => {
+    
+      firebase.initializeApp(config);
+}
 
   render() {
 
