@@ -20,6 +20,7 @@ import reducers from './src/reducers';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import config from './src/config'
+import AppNavigator from './src/navigation'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -41,10 +42,11 @@ export default class App extends Component {
 
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <AppNavigator />
+        {/* <View style={styles.container}>
           <Header text="Photos section" />
           <LoginForm />
-        </View>
+        </View> */}
       </Provider>
     );
     

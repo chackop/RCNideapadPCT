@@ -6,9 +6,16 @@ import { authInputChange, login } from '../actions';
 import { connect } from 'react-redux';
 import IdeaPadForm from './ideapadForm';
 import IdeaList from './idealist';
+import _ from 'lodash';
 
 
 class LoginForm extends Component {
+    componentWillReceiveProps = (nextProps) => {
+      if (!_.isEmpty(nextProps.user)) {
+          this.props.navigation.navigate('App');
+      }
+    }
+    
     
     login() {
         console.log("enter login func");
@@ -40,12 +47,12 @@ class LoginForm extends Component {
     }
 
   render() {
-      if (this.props.user) {
-        return (
-            // <IdeaPadForm />
-            <IdeaList />
-        )
-      }
+    //   if (this.props.user) {
+    //     return (
+    //         // <IdeaPadForm />
+    //         <IdeaList />
+    //     )
+    //   }
 
       return (
         <View style={styles.container}>
