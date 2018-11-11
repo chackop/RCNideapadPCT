@@ -2,32 +2,42 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Button, FormInput, FormValidationMessage } from 'react-native-elements';
 import InnerSection from "./inner-section";
-import { authInputChange, login, ideaInputChange, createIdea } from '../actions';
+import { authInputChange, login, ideaInputChange, createIdea, editIdeas, deleteIdeas } from '../actions';
 import { connect } from 'react-redux';
-import IdeaPadForm from './ideapadForm'
-
+import IdeaPadForm from './ideapadForm';
+import _ from 'lodash';
 
 class EditIdea extends Component {
+
+    componentDidMount = () => {
+      const { params } = this.props.navigation.state;
+      _.each(params.idea, (value, field) => {
+          this.props.ideaInputChange({
+            field,
+            value
+          });
+      })
+    }
+    
     
     edit() {
-        
+        const { id } = this.props.navigation.state.params.idea;
         const { title, idea } = this.props;
-
-        this.props.editIdea({title, idea});
+        this.props.editIdeas({title, idea, id});
+        this.props.navigation.navigate('Ideas');
     }
 
     delete() {
-        
-        const { title, idea } = this.props;
-
-        this.props.deleteIdea({title, idea});
+        const { id } = this.props.navigation.state.params.idea;
+        this.props.deleteIdeas({id});
+        this.props.navigation.navigate('Ideas');
     }
 
   render() {
     return (
       <View style={styles.container}>
       
-        <IdeaPadForm />
+        <IdeaPadForm {...this.props} />
 
         <InnerSection>
             <Button title="Save" onPress={this.edit.bind(this)} backgroundColor="blue" />
@@ -49,7 +59,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {ideaInputChange, login, createIdea})(EditIdea);
+export default connect(mapStateToProps, {ideaInputChange, login, createIdea, editIdeas, deleteIdeas})(EditIdea);
 
 const styles = StyleSheet.create({
     container: {

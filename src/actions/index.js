@@ -36,6 +36,30 @@ export const getIdeas = () => {
     }
 }
 
+export const editIdeas = ({title, idea, id}) => {
+    const { uid } = firebase.auth().currentUser;
+    console.log("uid", uid);
+    
+    return (dispatch) => {
+        firebase.database()
+        .ref(`/userIdeas/${uid}/ideas/${id}`)
+        .set({title, idea})
+        .then(() => dispatch({type: 'IDEA_UPDATED'}));
+    }
+}
+
+export const deleteIdeas = ({id}) => {
+    const { uid } = firebase.auth().currentUser;
+    console.log("uid", uid);
+    
+    return (dispatch) => {
+        firebase.database()
+        .ref(`/userIdeas/${uid}/ideas/${id}`)
+        .remove()
+        .then(() => dispatch({type: 'IDEA_DELETED'}));
+    }
+}
+
 export const authInputChange = ({ field, value }) => {
     return {
         type: 'AUTH_INPUT_CHANGE',

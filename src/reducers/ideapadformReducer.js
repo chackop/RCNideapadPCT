@@ -7,14 +7,17 @@ export default (state = initialState, action) => {
         case 'IDEA_INPUT_CHANGE':
             // newstate = [email: ''enewval, password: newval]
             return { ...state, [action.payload.field]: action.payload.value }
-            break;
 
         case 'NEW_IDEA':
             return initialState;
-            break;
+
+        case 'IDEA_UPDATED':
+            return initialState;
+
+        case 'IDEA_DELETED':
+            return initialState;
         
         default:
             return state;
-            break;
     }
 }

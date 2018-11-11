@@ -10,10 +10,9 @@ import IdeaPadForm from './ideapadForm'
 class AddIdea extends Component {
     
     create() {
-        
         const { title, idea } = this.props;
-
         this.props.createIdea({title, idea});
+        this.props.navigation.navigate('Ideas');
     }
 
   render() {
