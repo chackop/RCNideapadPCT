@@ -9,7 +9,9 @@ export const ideaInputChange = ({ field, value }) => {
 }
 
 export const createIdea = ({ title, idea }) => {
-    const uid = firebase.auth().currentUser;
+    const { uid } = firebase.auth().currentUser;
+    console.log("uid", uid);
+    
     return (dispatch) => {
         firebase.database()
         .ref(`/userIdeas/${uid}/ideas`)

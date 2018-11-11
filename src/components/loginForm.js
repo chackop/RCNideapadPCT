@@ -41,7 +41,10 @@ class LoginForm extends Component {
 
   render() {
       if (this.props.user) {
-        <IdeaList />
+        return (
+            // <IdeaPadForm />
+            <IdeaList />
+        )
       }
 
       return (

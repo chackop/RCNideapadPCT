@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 class IdeaPadForm extends Component {
     
     create() {
-        console.log("enter login func");
         
         const { title, idea } = this.props;
 
@@ -34,6 +33,7 @@ class IdeaPadForm extends Component {
         secureTextEntry={true}
         value = {this.props.password}
         multiline={true}
+        inputStyle={{height: 200}}
         onChangeText={text => this.props.ideaInputChange({
             'field': 'idea', 'value': text
         })} 
@@ -54,7 +54,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {ideaInputChange, login})(IdeaPadForm);
+export default connect(mapStateToProps, {ideaInputChange, login, createIdea})(IdeaPadForm);
 
 const styles = StyleSheet.create({
     container: {

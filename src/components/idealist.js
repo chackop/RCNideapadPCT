@@ -5,9 +5,9 @@ import { List, ListItem } from 'react-native-elements'
 export default class IdeaList extends Component {
   render() {
     return (
-        <List containerStyle={{marginTop: 0}}>
+      <List containerStyle={{marginTop: 0}}>
         <ListItem
-          title={'TestIdea'}
+          title={'Dummy'}
           leftIcon={{name: 'lightbulb-outline'}}
         />
       </List>
