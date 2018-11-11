@@ -20,6 +20,22 @@ export const createIdea = ({ title, idea }) => {
     }
 }
 
+export const getIdeas = () => {
+    const { uid } = firebase.auth().currentUser;
+    console.log("uid", uid);
+    
+    return (dispatch) => {
+        firebase.database()
+        .ref(`/userIdeas/${uid}/ideas`)
+        .on('value', (snapshot) => {
+            dispatch({
+                type: 'GET_IDEAS',
+                payload: snapshot.val()
+            })
+        });
+    }
+}
+
 export const authInputChange = ({ field, value }) => {
     return {
         type: 'AUTH_INPUT_CHANGE',

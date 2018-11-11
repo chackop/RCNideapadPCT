@@ -1,16 +1,43 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
+import { connect } from 'react-redux';
+import { getIdeas } from '../actions';
+import _ from 'lodash';
 
-export default class IdeaList extends Component {
+class IdeaList extends Component {
+  componentDidMount() {
+    this.props.getIdeas();
+  }
+
+  renderList() {
+    return this.props.ideas.map((idea) => {
+      return (
+        <ListItem
+          key={idea.id}
+          title={idea.title}
+          leftIcon={{name: 'lightbulb-outline'}}
+        />
+      );
+    });
+  }
+
   render() {
     return (
       <List containerStyle={{marginTop: 0}}>
-        <ListItem
-          title={'Dummy'}
-          leftIcon={{name: 'lightbulb-outline'}}
-        />
+       {this.renderList()}
       </List>
     )
   }
 }
+
+function mapStateToProps (state) {
+  const ideas = _.map(state.ideas, (val, id) => {
+    val['id'] = id;
+    return val;
+  });
+
+  return { ideas };
+}
+
+export default connect(mapStateToProps, { getIdeas })(IdeaList);
